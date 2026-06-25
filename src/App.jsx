@@ -3,6 +3,8 @@ import Dashboard from './Dashboard';
 import BookingAndEvents from './BookingAndEvents';
 import AdminDashboard from './AdminDashboard';
 import ReviewsAndBackend from './ReviewsAndBackend';
+import SignUpSignIn from './components/SignUpSignIn';
+import VenueSignUpSignIn from './components/VenueSignUpSignIn';
 import { artists, venues, events, initialBookings, initialReviews, adminUsers } from './data';
 
 function App() {
@@ -19,6 +21,15 @@ function App() {
           <button className={currentPage === 'landing' ? 'active' : ''} onClick={() => setCurrentPage('landing')}>
             Home
           </button>
+          <button className={currentPage === 'bookings-dashboard' ? 'active' : ''} onClick={() => setCurrentPage('bookings-dashboard')}>
+            📅 Bookings
+          </button>
+          <button className={currentPage === 'artists-dashboard' ? 'active' : ''} onClick={() => setCurrentPage('artists-dashboard')}>
+            🎤 Artists
+          </button>
+          <button className={currentPage === 'venues-dashboard' ? 'active' : ''} onClick={() => setCurrentPage('venues-dashboard')}>
+            🏛️ Venues
+          </button>
           <button className={currentPage === 'dashboard' ? 'active' : ''} onClick={() => setCurrentPage('dashboard')}>
             Dashboard
           </button>
@@ -34,7 +45,7 @@ function App() {
         </nav>
       </header>
 
-      <header className="hero">
+      <header className="hero" style={{ display: currentPage === 'artists-dashboard' || currentPage === 'venues-dashboard' ? 'none' : 'block' }}>
         <div>
           <p className="eyebrow">Platform Overview</p>
           <h1>Discover artists, book venues, and grow local events.</h1>
@@ -68,6 +79,18 @@ function App() {
               ))}
             </div>
           </section>
+        )}
+
+        {currentPage === 'bookings-dashboard' && (
+          <BookingAndEvents artists={artists} venues={venues} events={events} />
+        )}
+
+        {currentPage === 'artists-dashboard' && (
+          <SignUpSignIn />
+        )}
+
+        {currentPage === 'venues-dashboard' && (
+          <VenueSignUpSignIn />
         )}
 
         {currentPage === 'dashboard' && (
